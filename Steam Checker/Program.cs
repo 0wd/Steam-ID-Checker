@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -26,11 +26,27 @@ namespace Steam_Checker
             Check2();
             string[] lines = File.ReadAllLines(@"inputs.txt");
 
+            if(new FileInfo(@"inputs.txt").Length == 0)
+            {
+                MessageBox((IntPtr)0, "Please put words into inputs.txt", "czn's ID Checker", 0);
+                Process.GetCurrentProcess().Kill();
+
+            }
+
             foreach (string line in lines)
             {
                 try
                 {
                     string site = myWebClient.DownloadString("https://steamcommunity.com/id/" + line);
+
+                    if (line.Length < 3)
+                        continue;
+                    // 
+                    if (line.Length > 32)
+                        continue;
+
+                    if (line.Contains("."))
+                        continue;
 
                     if (site.Contains("The specified profile could not be found."))
                     {
@@ -54,6 +70,8 @@ namespace Steam_Checker
                 catch (Exception ex) { Console.WriteLine(ex + Environment.NewLine + "Create an issue with the error."); }
             }
             Console.Read();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(Environment.NewLine + "Finished lookup. You can close the window now.");
         }
 
         public static void Check()
@@ -71,7 +89,7 @@ namespace Steam_Checker
                 Console.WriteLine("inputs.txt doesn't exist. Its been created.");
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Process.Start("citizens steam id checker.exe", Environment.CommandLine.ToString());
-                MessageBox((IntPtr)0, "Please put words into inputs.txt", "Notification", 0);
+                MessageBox((IntPtr)0, "Inputs.txt created. Put your ids in there.", "czn's ID Checker", 0);
                 Process.GetCurrentProcess().Kill();
             }
         }
