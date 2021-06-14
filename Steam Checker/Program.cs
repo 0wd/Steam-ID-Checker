@@ -69,9 +69,9 @@ namespace Steam_Checker
                 }
                 catch (Exception ex) { Console.WriteLine(ex + Environment.NewLine + "Create an issue with the error."); }
             }
-            Console.Read();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(Environment.NewLine + "Finished lookup. You can close the window now.");
+            Console.Read();
         }
 
         public static void Check()
