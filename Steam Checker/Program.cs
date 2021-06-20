@@ -15,7 +15,7 @@ namespace Steam_Checker
         public static string finalString;
         public static WebClient myWebClient = new WebClient();
         public static int avalnum = 0;
-        public static int notnum = 0;
+        public static int notnum  = 0;
         [DllImport("User32.dll", CharSet = CharSet.Unicode)]
          public static extern int MessageBox(IntPtr h, string m, string c, int type);
     static void Main()
